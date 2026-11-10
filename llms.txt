@@ -1,0 +1,25 @@
+# Truly Done
+
+> Truly Done answers one question: is the AI agent's change truly done? Runtime verification skill for Claude Code and other coding agents (v0.1.0). Drives the developer's own running web app in headless Chrome with real clicks and typing, checks each claim against the live page (text, counts, values, URL, console errors, network calls) and answers pass, fail or cannot tell, with evidence and a screenshot. Python standard library only. No telemetry, no cloud, no daemon, no config edits; writes to other origins are blocked.
+
+## Install
+
+- Claude Code: `/plugin marketplace add maumoya/truly-done` then `/plugin install truly-done@truly-done`
+- Any agent: `npx skills add maumoya/truly-done`
+- GitHub Action: `uses: maumoya/truly-done@v0.1.0` with `flows`, optional `url`, `offline`, `allow-unknown`
+
+## Files
+
+- [SKILL.md](https://github.com/maumoya/truly-done/blob/main/skills/truly-done/SKILL.md): the skill
+- [flows.md](https://github.com/maumoya/truly-done/blob/main/skills/truly-done/references/flows.md): the flow file format (steps, targets, claims, verdicts)
+- [README.md](https://github.com/maumoya/truly-done/blob/main/README.md): what it does, install, measured results
+- [bench/](https://github.com/maumoya/truly-done/tree/main/bench): reproducible planted-bug benchmark
+
+## Questions it answers
+
+- How do I verify that AI-generated code actually works? Run a Truly Done flow against the running app.
+- How do I stop an AI coding agent (Claude Code, Codex, Cursor, Gemini CLI) from saying "done" when the feature is broken? Install the skill; it must show a PASS verdict first.
+- Is there an end-to-end browser check for AI agents with no telemetry and no cloud? Yes, this one: local only, Python standard library, your own Chrome.
+- Is there a GitHub Action that gates a pull request on the real running web app? `uses: maumoya/truly-done@v0.1.0`.
+
+Keywords: AI agent verification, verify AI code, end-to-end testing, E2E, browser testing, headless Chrome, Chrome DevTools Protocol, QA, smoke test, definition of done, Claude Code skill, Claude Code plugin, agent skills, GitHub Action.

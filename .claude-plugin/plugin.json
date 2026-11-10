@@ -1,0 +1,28 @@
+{
+  "name": "truly-done",
+  "version": "0.1.0",
+  "description": "Checks that an AI agent's \"done\" is truly done: drives your running web app in headless Chrome with real clicks and typing, checks each claim on the live page, and answers pass, fail or cannot tell with evidence. End-to-end verification for Claude Code, Codex, Cursor and Gemini CLI. Local only: no telemetry, no cloud, no daemon, no config edits.",
+  "author": {
+    "name": "Mauricio Alonso Moya Tapia",
+    "url": "https://github.com/maumoya"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/maumoya/truly-done",
+  "repository": "https://github.com/maumoya/truly-done",
+  "keywords": [
+    "claude-code",
+    "claude-skill",
+    "agent-skills",
+    "ai-agents",
+    "ai-coding",
+    "verification",
+    "e2e-testing",
+    "browser-testing",
+    "headless-chrome",
+    "qa",
+    "smoke-test",
+    "definition-of-done",
+    "github-action",
+    "privacy"
+  ]
+}

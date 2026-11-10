@@ -1,0 +1,17 @@
+{
+  "skill": "truly-done",
+  "queries": [
+    { "text": "/truly-done the signup form on localhost:3000", "trigger": true },
+    { "text": "verify it works in the running app before you say done", "trigger": true },
+    { "text": "did my fix actually work? check the add-to-cart button on my dev server", "trigger": true },
+    { "text": "prove the change works: open the app, add a todo and confirm it is still there after a reload", "trigger": true },
+    { "text": "test this flow in the browser and tell me pass or fail", "trigger": true },
+    { "text": "gate the PR on the real app, not just on the build", "trigger": true },
+    { "text": "u sure the login page rly works?? check it for real pls", "trigger": true, "holdout": true },
+    { "text": "is the feature really done? click through it on localhost and show me evidence", "trigger": true, "holdout": true },
+    { "text": "write unit tests for the parse_date function", "trigger": false },
+    { "text": "scrape every product and price from this shop into a CSV", "trigger": false },
+    { "text": "run a load test with 500 users against our API", "trigger": false },
+    { "text": "explain how React hooks work", "trigger": false, "holdout": true }
+  ]
+}

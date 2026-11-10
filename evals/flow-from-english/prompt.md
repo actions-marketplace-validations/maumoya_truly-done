@@ -1,0 +1,1 @@
+I have a todo app running on http://localhost:8765. Write a truly-done flow that proves adding a todo works: type "Buy milk" in the "New todo" field, press the Add button, and make sure it is really saved. Save it as flows/add-todo.json and validate it. You do not need to run it.

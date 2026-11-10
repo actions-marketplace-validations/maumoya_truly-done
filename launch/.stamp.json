@@ -1,0 +1,11 @@
+{
+ "assets": {
+  "assets/result-card.svg": "2840b227acda"
+ },
+ "facts": {
+  "baseline_caught": "0%",
+  "bugs_caught": "100%",
+  "false_alarms": "0%",
+  "median_seconds": "9.6 s"
+ }
+}

@@ -1,0 +1,8 @@
+{
+  "bugs_caught": {"value": "100%", "source": "bench/results/2026-11-10.json (9 of 9 planted bugs)", "date": "2026-11-10"},
+  "false_alarms": {"value": "0%", "source": "bench/results/2026-11-10.json (0 of 3 healthy variants)", "date": "2026-11-10"},
+  "baseline_caught": {"value": "0%", "source": "bench/results/2026-11-10.json (HTTP 200 check, 0 of 9)", "date": "2026-11-10"},
+  "median_seconds": {"value": "9.6 s", "source": "bench/results/2026-11-10.json (median per flow)", "date": "2026-11-10"},
+  "evals_with": {"value": "100%", "source": "evals/bench/2026-11-10.md (9 of 9 runs passed with the skill)", "date": "2026-11-10"},
+  "evals_without": {"value": "67%", "source": "evals/bench/2026-11-10.md (6 of 9 runs passed without the skill)", "date": "2026-11-10"}
+}

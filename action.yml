@@ -1,0 +1,63 @@
+name: "Truly Done"
+description: "Is the AI agent's change truly done? Run the real web app in headless Chrome and fail the job unless every claim passes."
+author: "Mauricio Alonso Moya Tapia"
+branding:
+  icon: "check-circle"
+  color: "green"
+
+inputs:
+  flows:
+    description: "Flow files to run (paths or globs, space separated), e.g. flows/*.json"
+    required: true
+  url:
+    description: "Base URL of the app, usually a server started earlier in the job (http://127.0.0.1:3000)."
+    required: false
+    default: ""
+  out:
+    description: "Folder for report.json, report.md and final.png of each flow."
+    required: false
+    default: "truly-done-report"
+  allow-unknown:
+    description: "Set to true to let a cannot-tell verdict pass the gate. Fail still fails."
+    required: false
+    default: "false"
+  offline:
+    description: "Set to true to block every request to another origin during the run."
+    required: false
+    default: "false"
+  allow-origins:
+    description: "Other hosts the app may send writes to (space separated). Default: none."
+    required: false
+    default: ""
+  mine:
+    description: "Set to true only when the URL is not loopback and the app is yours to test."
+    required: false
+    default: "false"
+
+outputs:
+  verdict:
+    description: "pass, fail or cannot_tell (the worst of all flows)."
+    value: ${{ steps.gate.outputs.verdict }}
+  flows:
+    description: "Number of flows that ran."
+    value: ${{ steps.gate.outputs.flows }}
+  report:
+    description: "Folder that holds the reports."
+    value: ${{ steps.gate.outputs.report }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run the flows and gate on the verdicts
+      id: gate
+      shell: bash
+      env:
+        VH_FLOWS: ${{ inputs.flows }}
+        VH_URL: ${{ inputs.url }}
+        VH_OUT: ${{ inputs.out }}
+        VH_ALLOW_UNKNOWN: ${{ inputs.allow-unknown }}
+        VH_OFFLINE: ${{ inputs.offline }}
+        VH_ALLOW_ORIGINS: ${{ inputs.allow-origins }}
+        VH_MINE: ${{ inputs.mine }}
+        VH_ACTION_PATH: ${{ github.action_path }}
+      run: python3 "$VH_ACTION_PATH/scripts/action_check.py"
