@@ -1,0 +1,19 @@
+{
+  "name": "add a todo",
+  "url": "/",
+  "steps": [
+    {"do": "type", "target": {"label": "New todo"}, "text": "Buy milk"},
+    {"do": "click", "target": {"role": "button", "text": "Add"}},
+    {"do": "expect", "expect": "text", "value": "Buy milk", "within": "#list", "claim": "the new todo shows in the list"},
+    {"do": "expect", "expect": "count", "selector": "[data-testid=todo]", "equals": 1, "claim": "exactly one todo exists"},
+    {"do": "expect", "expect": "text", "value": "1 item", "within": "#count", "claim": "the counter says 1 item"},
+    {"do": "expect", "expect": "value", "target": {"label": "New todo"}, "equals": "", "claim": "the input is cleared"},
+    {"do": "expect", "expect": "request", "method": "POST", "url_matches": "/api/todos$", "status": 201, "times": 1, "claim": "one POST was answered 201"},
+    {"do": "reload"}
+  ],
+  "claims": [
+    {"expect": "text", "value": "Buy milk", "within": "#list", "claim": "the todo is still there after a reload"},
+    {"expect": "no_console_errors"},
+    {"expect": "no_failed_requests"}
+  ]
+}

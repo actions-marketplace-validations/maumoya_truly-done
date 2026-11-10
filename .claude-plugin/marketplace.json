@@ -1,0 +1,32 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "truly-done",
+  "description": "Checks that an AI agent's \"done\" is truly done: drives your running web app in headless Chrome with real clicks and typing, checks each claim on the live page, and answers pass, fail or cannot tell with evidence. End-to-end verification for Claude Code, Codex, Cursor and Gemini CLI. Local only: no telemetry, no cloud, no daemon, no config edits.",
+  "owner": {
+    "name": "Mauricio Alonso Moya Tapia"
+  },
+  "plugins": [
+    {
+      "name": "truly-done",
+      "description": "Checks that an AI agent's \"done\" is truly done: drives your running web app in headless Chrome with real clicks and typing, checks each claim on the live page, and answers pass, fail or cannot tell with evidence. End-to-end verification for Claude Code, Codex, Cursor and Gemini CLI. Local only: no telemetry, no cloud, no daemon, no config edits.",
+      "source": "./",
+      "category": "development",
+      "keywords": [
+        "claude-code",
+        "claude-skill",
+        "agent-skills",
+        "ai-agents",
+        "ai-coding",
+        "verification",
+        "e2e-testing",
+        "browser-testing",
+        "headless-chrome",
+        "qa",
+        "smoke-test",
+        "definition-of-done",
+        "github-action",
+        "privacy"
+      ]
+    }
+  ]
+}

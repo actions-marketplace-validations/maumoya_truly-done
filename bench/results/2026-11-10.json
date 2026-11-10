@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "date": "2026-11-10",
+    "version": "0.1.0",
+    "bugs": 9,
+    "healthy": 3,
+    "truly_done_bugs_caught": 9,
+    "truly_done_false_alarms": 0,
+    "http_200_bugs_caught": 0,
+    "http_200_false_alarms": 0,
+    "median_seconds": 9.6
+  },
+  "rows": [
+    {
+      "variant": "healthy",
+      "broken": false,
+      "http_200": "pass",
+      "truly-done": "pass",
+      "seconds": 6.6,
+      "why": ""
+    },
+    {
+      "variant": "healthy, slow network",
+      "broken": false,
+      "http_200": "pass",
+      "truly-done": "pass",
+      "seconds": 6.4,
+      "why": ""
+    },
+    {
+      "variant": "healthy, phone viewport",
+      "broken": false,
+      "http_200": "pass",
+      "truly-done": "pass",
+      "seconds": 6.5,
+      "why": ""
+    },
+    {
+      "variant": "bug: the Add button does nothing",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 28.1,
+      "why": "the new todo shows in the list: text 'Buy milk' is not on the page"
+    },
+    {
+      "variant": "bug: an invisible layer covers the button",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 6.5,
+      "why": "step 2 (click) failed: <button#add> add is covered by <div#shield> , so a real click cannot reach it"
+    },
+    {
+      "variant": "bug: the button is disabled",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 5.0,
+      "why": "step 2 (click) failed: <button#add> add is disabled"
+    },
+    {
+      "variant": "bug: a script error on submit",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 9.6,
+      "why": "no console errors: 1 console error(s): TypeError: cannot read properties of undefined (reading id)"
+    },
+    {
+      "variant": "bug: the API fails but the page shows the item",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 28.4,
+      "why": "one POST was answered 201: POST /api/todos$ answered 500, not 201"
+    },
+    {
+      "variant": "bug: the item is gone after a reload",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 9.6,
+      "why": "the todo is still there after a reload: text 'Buy milk' is not on the page"
+    },
+    {
+      "variant": "bug: the counter is off by one",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 9.5,
+      "why": "the counter says 1 item: text '1 item' is not on the page"
+    },
+    {
+      "variant": "bug: the write is sent twice",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 16.0,
+      "why": "exactly one todo exists: 2 visible element(s) match [data-testid=todo]"
+    },
+    {
+      "variant": "bug: the field keeps the old text",
+      "broken": true,
+      "http_200": "pass",
+      "truly-done": "fail",
+      "seconds": 10.1,
+      "why": "the input is cleared: value is 'Buy milk'"
+    }
+  ]
+}

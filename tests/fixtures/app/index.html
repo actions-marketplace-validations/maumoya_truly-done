@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Todos</title>
+<link rel="icon" href="data:,">
+<style>
+  body { font: 16px system-ui, sans-serif; max-width: 520px; margin: 40px auto; padding: 0 16px; }
+  form { display: flex; gap: 8px; position: relative; }
+  input[type=text] { flex: 1; padding: 8px; font: inherit; }
+  button { padding: 8px 14px; font: inherit; }
+  li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #ddd; }
+  #shield { position: absolute; inset: 0 0 0 auto; width: 90px; background: transparent; }
+  #error { color: #b00020; }
+</style>
+</head>
+<body>
+<h1>Todos</h1>
+<form id="add-form">
+  <label for="title" hidden>New todo</label>
+  <input id="title" type="text" aria-label="New todo" placeholder="What needs doing?" autocomplete="off">
+  <button id="add" type="submit" data-testid="add">Add</button>
+</form>
+<p id="error" role="alert"></p>
+<p><span id="count" data-testid="count">0 items</span></p>
+<ul id="list"></ul>
+<label><input id="done-all" type="checkbox"> Hide the list</label>
+<select id="filter" aria-label="Filter">
+  <option value="all">All</option>
+  <option value="short">Short only</option>
+</select>
+<script>
+// ?bug=NAME plants one defect. No bug = the healthy app.
+const params = new URLSearchParams(location.search);
+const bug = params.get('bug') || '';
+const slow = params.has('slow') ? 800 : 0;
+const $ = id => document.getElementById(id);
+let todos = [];
+
+function render() {
+  const filter = $('filter').value;
+  const shown = todos.filter(t => filter === 'all' || t.title.length <= 8);
+  $('list').innerHTML = '';
+  for (const t of shown) {
+    const li = document.createElement('li');
+    li.dataset.testid = 'todo';
+    const span = document.createElement('span');
+    span.textContent = t.title;
+    const del = document.createElement('button');
+    del.textContent = 'Delete';
+    del.setAttribute('aria-label', 'Delete ' + t.title);
+    del.onclick = async () => { await fetch('/api/todos/' + t.id, {method: 'DELETE'}); await load(); };
+    li.append(span, del);
+    $('list').append(li);
+  }
+  const n = bug === 'wrong-count' ? Math.max(0, shown.length - 1) : shown.length;
+  $('count').textContent = n + (n === 1 ? ' item' : ' items');
+  $('list').hidden = $('done-all').checked;
+}
+
+async function load() {
+  todos = await (await fetch('/api/todos')).json();
+  render();
+}
+
+async function add(title) {
+  if (slow) await new Promise(r => setTimeout(r, slow));
+  const res = await fetch('/api/todos', {method: 'POST',
+    headers: {'Content-Type': 'application/json', 'X-Bug': bug}, body: JSON.stringify({title})});
+  if (!res.ok) {                       // api-500: the app swallows the failure and shows the item anyway
+    if (bug === 'api-500') { todos.push({id: -1, title}); render(); return; }
+    $('error').textContent = 'Could not add the todo.';
+    return;
+  }
+  const todo = await res.json();
+  if (bug === 'no-persist') { todos.push(todo); render(); return; }   // looks saved; gone after a reload
+  await load();
+}
+
+$('add-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (bug === 'noop-add') return;                                      // the button does nothing
+  const title = $('title').value.trim();
+  if (!title) { $('error').textContent = 'Type a todo first.'; return; }
+  $('error').textContent = '';
+  if (bug === 'console-error') console.error('TypeError: cannot read properties of undefined (reading id)');
+  await add(title);
+  if (bug === 'dup') await add(title);                                 // sends the write twice
+  if (bug !== 'no-clear') $('title').value = '';                       // the field keeps the old text
+});
+
+$('filter').addEventListener('change', render);
+$('done-all').addEventListener('change', render);
+if (bug === 'disabled') $('add').disabled = true;                      // the button can never be pressed
+if (bug === 'covered') {                                               // an invisible layer sits over the button
+  const shield = document.createElement('div');
+  shield.id = 'shield';
+  $('add-form').append(shield);
+}
+load();
+</script>
+</body>
+</html>

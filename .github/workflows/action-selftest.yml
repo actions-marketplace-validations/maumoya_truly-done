@@ -1,0 +1,59 @@
+# Self-test of the root action.yml (the Marketplace action) on the loopback fixture app:
+# one run that must pass (healthy app) and one that must fail (a planted bug).
+name: Action self-test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions: read-all
+
+jobs:
+  selftest:
+    name: Action self-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Serve the fixture app on loopback
+        run: |
+          (python3 tests/fixtures/app/server.py --port 8765 >/dev/null 2>&1 &)
+          for _ in $(seq 30); do curl -fsS http://127.0.0.1:8765/ >/dev/null && break; sleep 0.5; done
+
+      - name: Passing run (healthy app)
+        id: pass
+        uses: ./
+        with:
+          flows: tests/fixtures/flows/add-todo.json
+          url: http://127.0.0.1:8765
+          offline: "true"
+          out: report-pass
+
+      - name: Reset the app
+        run: curl -fsS -X POST http://127.0.0.1:8765/api/reset
+
+      - name: Failing run (the Add button does nothing)
+        id: fail
+        continue-on-error: true
+        uses: ./
+        with:
+          flows: tests/fixtures/flows/add-todo.json
+          url: http://127.0.0.1:8765/?bug=noop-add
+          out: report-fail
+
+      - name: Assert the outcomes
+        env:
+          PASS_OUTCOME: ${{ steps.pass.outcome }}
+          FAIL_OUTCOME: ${{ steps.fail.outcome }}
+          PASS_VERDICT: ${{ steps.pass.outputs.verdict }}
+          FAIL_VERDICT: ${{ steps.fail.outputs.verdict }}
+        run: |
+          echo "pass=$PASS_OUTCOME ($PASS_VERDICT) fail=$FAIL_OUTCOME ($FAIL_VERDICT)"
+          [ "$PASS_OUTCOME" = success ] && [ "$PASS_VERDICT" = pass ]
+          [ "$FAIL_OUTCOME" = failure ] && [ "$FAIL_VERDICT" = fail ]
+          # outcome == 'failure' asserted above

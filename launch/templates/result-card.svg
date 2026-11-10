@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="170" viewBox="0 0 720 170" role="img" aria-label="Measured 2026-11-10: {{bugs_caught}} of 9 planted bugs caught, {{false_alarms}} false alarms, where an HTTP 200 check caught {{baseline_caught}}">
+  <rect width="720" height="170" rx="18" fill="#0f5132"/>
+  <rect x="2" y="2" width="716" height="166" rx="16" fill="none" stroke="#4ade80" stroke-width="2"/>
+  <text x="40" y="78" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="54" font-weight="800" fill="#4ade80">{{bugs_caught}}</text>
+  <text x="200" y="58" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="22" font-weight="700" fill="#ffffff">of 9 planted bugs caught</text>
+  <text x="200" y="86" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="18" fill="#d1fae5">where "the page returns 200" caught {{baseline_caught}}</text>
+  <text x="40" y="136" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="30" font-weight="800" fill="#4ade80">{{false_alarms}}</text>
+  <text x="112" y="136" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif" font-size="18" fill="#ffffff">false alarms on 3 healthy runs · measured 2026-11-10</text>
+</svg>

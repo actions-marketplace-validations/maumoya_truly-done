@@ -1,0 +1,3 @@
+[
+  {"path": "assets/result-card.svg", "template": "launch/templates/result-card.svg", "uses": ["bugs_caught", "false_alarms", "baseline_caught"]}
+]

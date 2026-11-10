@@ -1,0 +1,5 @@
+schema_version: "1.1"
+name: flow-from-english
+expected_outcome: |
+  The agent writes a truly-done flow file for the described behaviour (type a todo, click Add, the todo
+  shows, it survives a reload, no console errors) and validates it with verify.py check, which prints OK.
